@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,8 @@ namespace StudyJWT_on_ASPNETCore.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return "PROTECTED RESOURCE";
+            var username = this.User.FindFirst(x => x.Type == ClaimTypes.Name).Value;
+            return $"Hi {username}. YOU ARE ACCESSING PROTECTED RESOURCE";
         }
 
         [HttpPost]
